@@ -7,9 +7,7 @@
         <img :src="photo.url" :alt="photo.title">
 
       </li>
-
     </ul>
-
     
   </div>
 </template>
@@ -21,17 +19,13 @@ export default {
     
     return {
       title: 'Brangi Pics',
-      photos: [
-        {
-          url: 'https://d4rkb12ivmqp2.cloudfront.net/images/pets/big/prairie-dog.v7384.jpg',
-          title: 'Dog'
-        },
-        {
-          url: 'https://d4rkb12ivmqp2.cloudfront.net/images/pets/big/prairie-dog.v7384.jpg',
-          title: 'Snoop Dog'
-        }
-      ]
+      photos: []
     }
+  },
+  created() {
+    this.$http.get('http://localhost:3000/v1/fotos')
+      .then(res => res.json())
+      .then(photos => this.photos = photos, err => console.log(err));
   }
 }
 </script>
