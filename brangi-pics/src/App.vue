@@ -2,8 +2,10 @@
   <div>
     <h1> {{ title }}</h1>
 
+    <input type="search" placeholder="Find by title" v-on:input="filter = $event.target.value">
+
     <ul class="inline-block">
-      <li v-for="photo of photos">
+      <li v-for="photo of photosFiltered">
          <panel :title="photo.titulo">
           <img class="img-responsive" :src="photo.url" :alt="photo.title">
         </panel>
@@ -25,10 +27,22 @@ export default {
   },
   
   data () {
-    
     return {
       title: 'Brangi Pics',
-      photos: []
+      photos: [],
+      filter: ''
+    }
+  },
+  computed: {
+
+    photosFiltered() {
+      if (this.filter) {
+        let exp = new RegExp(this.filter.trim(), 'i');
+
+        return this.photos.filter(photo => exp.test(photo.titulo));
+      } else {
+        return this.photos;
+      }
     }
   },
   created() { // lifecycle hooks
