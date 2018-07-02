@@ -2,9 +2,11 @@
   <div>
     <h1> {{ title }}</h1>
 
-    <ul>
+    <ul class="inline-block">
       <li v-for="photo of photos">
-        <img :src="photo.url" :alt="photo.title">
+         <panel :title="photo.titulo">
+          <img class="img-responsive" :src="photo.url" :alt="photo.title">
+        </panel>
 
       </li>
     </ul>
@@ -13,7 +15,14 @@
 </template>
 
 <script>
+
+import Panel from './components/shared/panel/Panel.vue';
+
 export default {
+
+  components: {
+    'panel': Panel
+  },
   
   data () {
     
@@ -22,7 +31,7 @@ export default {
       photos: []
     }
   },
-  created() {
+  created() { // lifecycle hooks
     this.$http.get('http://localhost:3000/v1/fotos')
       .then(res => res.json())
       .then(photos => this.photos = photos, err => console.log(err));
@@ -57,4 +66,13 @@ li {
 a {
   color: #42b983;
 }
+
+.img-responsive {
+  width: 100%;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
 </style>
