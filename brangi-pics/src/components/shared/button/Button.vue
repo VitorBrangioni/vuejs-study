@@ -8,7 +8,19 @@
 <script>
 
 export default {
-    props: ['type', 'title', 'confirmation'],
+    // props: ['type', 'title', 'confirmation'],
+
+    props: {
+        type: {
+            required: true,
+            type: String
+        },
+        title: {
+            required: true,
+            type: String
+        },
+        confirmation: boolean
+    }
 
     methods: {
         
