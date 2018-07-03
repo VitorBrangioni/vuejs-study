@@ -7,7 +7,7 @@
     <ul class="inline-block">
       <li v-for="photo of photosFiltered">
          <panel :title="photo.titulo">
-          <img class="img-responsive" :src="photo.url" :alt="photo.title">
+            <responsive-img :url="photo.url" :title="photo.titulo"/>
         </panel>
 
       </li>
@@ -19,11 +19,13 @@
 <script>
 
 import Panel from './components/shared/panel/Panel.vue';
+import ResponsiveImage from './components/shared/image/ResponsiveImage.vue';
 
 export default {
 
   components: {
-    'panel': Panel
+    'panel': Panel,
+    'responsive-img': ResponsiveImage
   },
   
   data () {
@@ -79,10 +81,6 @@ li {
 
 a {
   color: #42b983;
-}
-
-.img-responsive {
-  width: 100%;
 }
 
 .inline-block {
