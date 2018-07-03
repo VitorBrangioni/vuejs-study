@@ -1,6 +1,6 @@
 <template>
 
-<button :type="type" class="btn btn-danger"> {{ title }} </button>
+<button @click="btnActived()" :type="type" class="btn btn-danger"> {{ title }} </button>
 
     
 </template>
@@ -8,7 +8,16 @@
 <script>
 
 export default {
-    props: ['type', 'title']
+    props: ['type', 'title'],
+
+    methods: {
+        
+        btnActived () {
+            if (confirm('Confirma remocao?')) {
+                this.$emit('btnActived');
+            }  
+        }
+    }
 }
     
 </script>
