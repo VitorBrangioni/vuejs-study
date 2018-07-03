@@ -8,6 +8,7 @@
       <li v-for="photo of photosFiltered">
          <panel :title="photo.titulo">
             <responsive-img :url="photo.url" :title="photo.titulo"/>
+            <btn type="button" :title="photo.titulo" />
         </panel>
 
       </li>
@@ -20,12 +21,14 @@
 
 import Panel from '../shared/panel/Panel.vue';
 import ResponsiveImage from '../shared/image/ResponsiveImage.vue';
+import Button from '../shared/button/Button';
 
 export default {
 
   components: {
     'panel': Panel,
-    'responsive-img': ResponsiveImage
+    'responsive-img': ResponsiveImage,
+    'btn': Button
   },
   
   data () {
