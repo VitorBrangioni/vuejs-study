@@ -8,7 +8,7 @@
       <li v-for="photo of photosFiltered">
          <panel :title="photo.titulo">
             <responsive-img :url="photo.url" :title="photo.titulo"/>
-            <btn type="button" :title="photo.titulo" @btnActived="remove(photo)" />
+            <btn type="button" :title="photo.titulo" :confirmation="true" @btnActived="remove(photo)" />
         </panel>
 
       </li>
@@ -38,7 +38,7 @@ export default {
       filter: ''
     }
   },
-  computed: {
+  computed: { // usar quando sera usado dentro de uma propriedade html
 
     photosFiltered() {
       if (this.filter) {

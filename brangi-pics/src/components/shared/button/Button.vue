@@ -8,14 +8,19 @@
 <script>
 
 export default {
-    props: ['type', 'title'],
+    props: ['type', 'title', 'confirmation'],
 
     methods: {
         
         btnActived () {
-            if (confirm('Confirma remocao?')) {
-                this.$emit('btnActived');
-            }  
+
+            if (this.confirmation) {
+                if (confirm('Confirma remocao?')) {
+                    this.$emit('btnActived');
+                }
+                return;
+            }
+            this.$emit('btnActived');
         }
     }
 }
