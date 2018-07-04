@@ -8,7 +8,6 @@
 <script>
 
 export default {
-    // props: ['type', 'title', 'confirmation'],
 
     props: {
         type: {
@@ -19,8 +18,8 @@ export default {
             required: true,
             type: String
         },
-        confirmation: boolean
-    }
+        confirmation: Boolean
+    },
 
     methods: {
         
