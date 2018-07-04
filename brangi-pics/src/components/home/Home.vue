@@ -6,7 +6,7 @@
 
     <ul class="inline-block">
       <li v-for="photo of photosFiltered">
-         <panel :title="photo.titulo" v-transform>
+         <panel :title="photo.titulo" v-transform.animate>
             <responsive-img :url="photo.url" :title="photo.titulo"/>
             <btn type="button" :title="photo.titulo" :confirmation="true" @btnActived="remove(photo)" />
         </panel>
