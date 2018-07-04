@@ -23,12 +23,17 @@ import Panel from '../shared/panel/Panel.vue';
 import ResponsiveImage from '../shared/image/ResponsiveImage.vue';
 import Button from '../shared/button/Button';
 
+import Transform from '../../directives/Transform.js';
+
 export default {
 
   components: {
     'panel': Panel,
     'responsive-img': ResponsiveImage,
     'btn': Button
+  },
+  directives: {
+    'transform': Transform
   },
   
   data () {
