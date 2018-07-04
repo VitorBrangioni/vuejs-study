@@ -10,7 +10,10 @@ import Transform from './directives/Transform'; // carregar arquivo
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
-const router = new VueRouter({ routes });
+const router = new VueRouter({
+  routes,
+  mode: 'history' // remover '#'
+});
 
 // Vue Instance
 new Vue({
