@@ -4,6 +4,9 @@ import VueResource from 'vue-resource';
 import VueRouter from 'vue-router'; // Global Vue
 import { routes } from './routes';
 
+/* DIRECTIVES */
+import Transform from './directives/Transform'; // carregar arquivo
+
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
