@@ -8,7 +8,12 @@
       <li v-for="photo of photosFiltered">
          <panel :title="photo.titulo" v-transform.animate>
             <responsive-img :url="photo.url" :title="photo.titulo"/>
-            <btn type="button" :title="photo.titulo" :confirmation="true" @btnActived="remove(photo)" />
+            <h2>{{ photo.titulo }}</h2>
+            <btn type="button" title="Remover" :confirmation="true" @btnActived="remove(photo)" />
+
+            <router-link :to="{ name: 'update', params: { id: photo._id } }">
+              <btn type="button" title="Alterar" :confirmation="false" />
+            </router-link>
         </panel>
 
       </li>
@@ -22,6 +27,7 @@
 import Panel from '../shared/panel/Panel.vue';
 import ResponsiveImage from '../shared/image/ResponsiveImage.vue';
 import Button from '../shared/button/Button';
+import ImageService from '../../domains/ImageService.js';
 
 import Transform from '../../directives/Transform.js';
 
@@ -59,12 +65,20 @@ export default {
   methods: {
 
     remove(photo) {
-        alert('removido: ' + photo.titulo);
+      this.service
+        .delete(photo._id)
+        .then(() => {
+          let index = this.photos.indexOf(photo);
+          this.photos.splice(index, 1);
+        }, err => console.log(err));
     }
 
   },
 
   created() { // lifecycle hooks
+
+    this.service = new ImageService(this.$resource);
+
     this.$http.get('http://localhost:3000/v1/fotos')
       .then(res => res.json())
       .then(photos => this.photos = photos, err => console.log(err));

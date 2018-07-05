@@ -22,7 +22,7 @@
       </div>
 
       <div class="centralizado">
-        <meu-botao title="GRAVAR" type="submit"/>
+        <meu-botao title="GRAVAR" type="submit" @btnActived="update(photo._id)"/>
         <router-link to="/"><meu-botao title="VOLTAR" type="button"/></router-link>
       </div>
 
@@ -35,6 +35,7 @@
 import ImagemResponsiva from '../shared/image/ResponsiveImage.vue';
 import Botao from '../shared/button/Button.vue';
 import Image from '../../domains/Image';
+import ImageService from '../../domains/ImageService';
 
 export default {
 
@@ -42,6 +43,16 @@ export default {
 
     'imagem-responsiva': ImagemResponsiva, 
     'meu-botao': Botao
+  },
+
+  created() {
+    this.service = new ImageService(this.$resource);
+    this.id = this.$route.params.id;
+
+    if(this.id) {
+      this.service.find(this.id)
+          .then((res) => this.image = res);
+    }
   },
 
   data() {
@@ -53,20 +64,20 @@ export default {
   methods: {
 
       save() {
-        // 1) enviar dados para API
-        console.log("saving..");
-        console.log(this.image.titulo);
-        console.log(this.image.url);
-        console.log(this.image.descricao);
-        console.log(this.image);
-        
-        this.$http
-            .post('http://localhost:3000/v1/fotos', this.image)
-            .then(() => this.image = new Image(), err => console.log(err));
-            
+        this.service.save(this.image)
+          .then(() => {
+            if(this.id) this.$router.push({ name: 'home' });
+            this.image = new Image();
+          }, err => console.log(err));
+      },
 
+      delete() {
+        this.service.delete(this.image.id)
+          .then(() => console.log('removido'), err => console.log(err));
+      },
 
-        // 2) limpar dados do form
+      update() {
+        this.service.save(this.image);
       }
   }
 }
