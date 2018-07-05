@@ -7,12 +7,14 @@
     <form @submit.prevent="save()">
       <div class="controle">
         <label for="titulo">TÍTULO</label>
-        <input id="titulo" autocomplete="off" v-model="image.titulo">
+        <input data-vv-as="título" v-validate data-vv-rules="required|min:3|max:30" id="titulo" name="titulo" autocomplete="off" v-model="image.titulo">
+        <span v-show="errors.has('titulo')">{{ errors.first('titulo') }}</span>
       </div>
 
       <div class="controle">
         <label for="url">URL</label>
-        <input id="url" autocomplete="off" v-model.lazy="image.url">
+        <input v-validate data-vv-rules="required" id="url" name="url" autocomplete="off" v-model="image.url">
+        <span v-show="errors.has('url')">{{ errors.first('url') }}</span>
         <imagem-responsiva v-show="image.url" :url="image.url" :title="image.titulo" />
       </div>
 
@@ -64,11 +66,19 @@ export default {
   methods: {
 
       save() {
-        this.service.save(this.image)
-          .then(() => {
-            if(this.id) this.$router.push({ name: 'home' });
-            this.image = new Image();
-          }, err => console.log(err));
+
+        this.$validator
+          .validateAll()
+          .then(success => {
+            if (success) {
+              this.service.save(this.image)
+                .then(() => {
+                  if(this.id) this.$router.push({ name: 'home' });
+                  this.image = new Image();
+                }, err => console.log(err));
+
+            }
+          });
       },
 
       delete() {
