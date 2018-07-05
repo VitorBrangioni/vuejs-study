@@ -10,10 +10,20 @@ import Transform from './directives/Transform'; // carregar arquivo
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
-
 Vue.use(VeeValidate);
 
 Vue.http.options.root = 'http://localhost:3000';
+
+Vue.http.interceptors.push((req, next) => {
+
+  // req.headers.set('Authorization', 'informação de segurança aqui');
+  console.log("ligando com request.. ");
+
+  next(res => {
+    console.log('Lidando com a resposta');
+    console.log(res.body);
+  }); 
+});
 
 const router = new VueRouter({
   routes,
