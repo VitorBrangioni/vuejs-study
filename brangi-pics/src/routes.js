@@ -1,4 +1,7 @@
-import Register from './components/register/Register.vue';
+// vai gerar um bundle novo e sera carregado somente quando necessario
+// code splitting e lary loading
+const Register = () => System.import('./components/register/Register.vue');
+
 import Home from './components/home/Home.vue';
 
 export const routes = [
